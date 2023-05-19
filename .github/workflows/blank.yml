@@ -35,6 +35,7 @@ jobs:
             - First Change
             - Second Change
             - Third Change
+            - Fourth Change
           draft: false
           prerelease: false
 
