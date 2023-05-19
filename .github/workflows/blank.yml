@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+      - name: Set Environment Variables
+        uses:  ./.github/variables/myvars.env
+        with:
+           tag_name: ${{MYVAR1}}
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
