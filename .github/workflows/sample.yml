@@ -14,10 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Include variables
-        include: .github/variables.yml
+      - name: Load variables
+        run: |
+          source .github/variables.sh
 
       - name: Use variables
         run: |
-          echo ${{ variables.VAR1 }}
-          echo ${{ variables.VAR2 }}
+          echo $VAR1
+          echo $VAR2
