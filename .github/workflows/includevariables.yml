@@ -1,5 +1,6 @@
 # .github/workflows/main.yml
 name: Example Workflow
+
 on:
   push:
     branches:
@@ -14,11 +15,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Load variables
+        id: load-variables
         run: |
-          echo "${{ env.VARIABLES_YAML }}" > .github/variables.yml
+          echo "::set-output name=variables::$(cat .github/variables.yml | base64)"
 
       - name: Read variables
         run: |
-          echo "${{ env.VARIABLES_YAML }}"
-          echo "${{ fromYaml(env.VARIABLES_YAML).VAR1 }}"
-          echo "${{ fromYaml(env.VARIABLES_YAML).VAR2 }}"
+          echo "${{ steps.load-variables.outputs.variables }}" | base64 --decode | jq -r '.VAR1'
+          echo "${{ steps.load-variables.outputs.variables }}" | base64 --decode | jq -r '.VAR2'
