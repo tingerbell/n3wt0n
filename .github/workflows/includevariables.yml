@@ -17,7 +17,7 @@ jobs:
       - name: Read variables
         run: |
           stableVersion=$(grep "stableVersion:" .github/variables.yml | awk -F ": " '{print $2}')
-          echo "::set-env name=stableVersion"
+          echo "::set-env name=stableVersion::$stableVersion"
         
           
       - name: Create Release
