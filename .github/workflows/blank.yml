@@ -22,16 +22,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
-      - name: Include variables
-        include: .github/workflows/variables.yml
+      - name: Load variables
+        run: |
+          source .github/variables.sh
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ variables.VAR1 }}
-          release_name: Release ${{ variables.VAR1 }}
+          tag_name: $VAR1
+          release_name: Release $VAR1
           body: |
             Changes in this Release
             - First Change
