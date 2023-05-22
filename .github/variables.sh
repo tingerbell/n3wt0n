@@ -1,3 +1,3 @@
 # variables.sh
-export VAR1="Hello"
+export stableVersion=2.6.1
 export VAR2="World"
