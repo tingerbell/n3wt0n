@@ -1,0 +1,32 @@
+# .github/workflows/main.yml
+name: Example Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Include variables
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+
+            const variables = yaml.load(fs.readFileSync('.github/variables.yml', 'utf8'));
+            Object.keys(variables).forEach(key => {
+              process.env[key] = variables[key];
+            });
+
+      - name: Use variables
+        run: |
+          echo ${{ env.VAR1 }}
+          echo ${{ env.VAR2 }}
