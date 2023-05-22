@@ -2,9 +2,9 @@
 name: Example Workflow
 
 on:
- 
   pull_request:
-    branches: [ "QA" ]
+    types:
+      - closed
 
 jobs:
   build:
