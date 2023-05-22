@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     if: |
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main'
+      github.event.pull_request.merged == true 
+     
       
     steps:
       - name: Checkout repository
