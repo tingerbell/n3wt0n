@@ -30,7 +30,7 @@ jobs:
       - name: Use variables
         run: |
           echo $stableVersion
-    
+  
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
