@@ -17,9 +17,9 @@ jobs:
       - name: Load variables
         id: load-variables
         run: |
-          echo "::set-output name=variables::$(cat .github/variables.yml | base64)"
+          echo "::set-output name=variables::$(cat .github/variables.yml | jq -r tostring)"
 
       - name: Read variables
         run: |
-          echo "${{ steps.load-variables.outputs.variables }}" | base64 --decode | jq -r '.VAR1'
-          echo "${{ steps.load-variables.outputs.variables }}" | base64 --decode | jq -r '.VAR2'
+          echo "${{ steps.load-variables.outputs.variables }}" | jq -r '.VAR1'
+          echo "${{ steps.load-variables.outputs.variables }}" | jq -r '.VAR2'
