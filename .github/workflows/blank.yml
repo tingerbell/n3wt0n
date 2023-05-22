@@ -23,14 +23,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
         
-      - name: Load variables
+      - name: Read variables
         run: |
-          source .github/stablevar.sh
-        
-      - name: Use variables
-        run: |
+          stableVersion = $(grep "stableVersion:" .github/variables.yml | awk -F ": " '{print $2}')
           echo $stableVersion
-  
+          
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
