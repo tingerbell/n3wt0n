@@ -1,1 +1,1 @@
-export stableVersion=3.0.1
+export stableVersion="3.0.1"
