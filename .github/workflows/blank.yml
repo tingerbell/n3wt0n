@@ -22,18 +22,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
-      - name: Set Environment Variables
-        uses:  ./.github/variables/myvars.env
-        with:
-           tag_name: ${{MYVAR1}}
+      - name: Include variables
+        include: path/to/variables.yml
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{vars.STABLEVERSION}}
-          release_name: Release ${{vars.STABLEVERSION}}
+          tag_name: ${{ variables.VAR1 }}
+          release_name: Release ${{ variables.VAR1 }}
           body: |
             Changes in this Release
             - First Change
