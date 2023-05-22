@@ -23,7 +23,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Include variables
-        include: path/to/variables.yml
+        include: .github/workflows/variables.yml
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
