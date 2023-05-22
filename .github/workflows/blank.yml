@@ -25,7 +25,7 @@ jobs:
         
       - name: Load variables
         run: |
-          source .github/variables.sh
+          source .github/stablevar.sh
           
       - name: Use variables
         run: |
