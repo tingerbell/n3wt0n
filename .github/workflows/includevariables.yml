@@ -16,8 +16,6 @@ jobs:
 
       - name: Read variables
         run: |
-          VAR1=$(grep "VAR1:" .github/variables.yml | awk -F ": " '{print $2}')
-          VAR2=$(grep "VAR2:" .github/variables.yml | awk -F ": " '{print $2}')
-
-          echo $VAR1
-          echo $VAR2
+          stableVersion=$(grep "stableVersion:" .github/variables.yml | awk -F ": " '{print $2}')
+         
+          echo $stableVersion
