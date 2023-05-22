@@ -1,0 +1,23 @@
+# .github/workflows/main.yml
+name: Example Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Include variables
+        include: .github/variables.yml
+
+      - name: Use variables
+        run: |
+          echo ${{ variables.VAR1 }}
+          echo ${{ variables.VAR2 }}
