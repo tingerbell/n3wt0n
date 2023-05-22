@@ -2,15 +2,17 @@
 name: Example Workflow
 
 on:
-  push:
-    branches:
-      - main
+ 
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions: write-all
-    steps:
+    if: |
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'main'
       - name: Checkout repository
         uses: actions/checkout@v2
 
