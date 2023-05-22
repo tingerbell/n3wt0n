@@ -14,11 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install yq
+        run: |
+          sudo add-apt-repository ppa:rmescandon/yq -y
+          sudo apt update -y
+          sudo apt install yq -y
+
       - name: Load variables
         id: load-variables
         run: |
-          echo "VAR1=$(cat .github/variables.yml | jq -r '.VAR1')" >> $GITHUB_ENV
-          echo "VAR2=$(cat .github/variables.yml | jq -r '.VAR2')" >> $GITHUB_ENV
+          echo "VAR1=$(yq -r '.VAR1' .github/variables.yml)" >> $GITHUB_ENV
+          echo "VAR2=$(yq -r '.VAR2' .github/variables.yml)" >> $GITHUB_ENV
 
       - name: Read variables
         run: |
