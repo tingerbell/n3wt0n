@@ -14,13 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Load variables
-        id: load-variables
-        uses: azure/github-actions/yaml-parser@master
-        with:
-          file: .github/variables.yml
-
       - name: Read variables
         run: |
-          echo ${{ steps.load-variables.outputs.VAR1 }}
-          echo ${{ steps.load-variables.outputs.VAR2 }}
+          VAR1=$(grep "VAR1:" .github/variables.yml | awk -F ": " '{print $2}')
+          VAR2=$(grep "VAR2:" .github/variables.yml | awk -F ": " '{print $2}')
+
+          echo $VAR1
+          echo $VAR2
