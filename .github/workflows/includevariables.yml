@@ -1,6 +1,5 @@
 # .github/workflows/main.yml
 name: Example Workflow
-
 on:
   push:
     branches:
