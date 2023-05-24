@@ -28,7 +28,17 @@ jobs:
         id: get_tags
         run: |
           tags=$(git ls-remote --tags --refs origin | awk '{print $2}' | awk -F/ '{print $NF}')
-          echo "::set-output name=tags::$tags"
+          echo "tags=$tags" >> $GITHUB_ENV
+      
+      - name: Compare Tags
+        run: |
+          tags=$GITHUB_ENV_TAGS
+          existing_tag= ${{ env.stableVersion }}  # Replace with your existing tag
+          if [[ $tags =~ (^|[[:space:]])$existing_tag($|[[:space:]]) ]]; then
+            echo "Tag $existing_tag exists!"
+          else
+            echo "Tag $existing_tag does not exist!"
+          fi
           
       - name: Run build
         run: |
