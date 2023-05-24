@@ -5,6 +5,9 @@ on:
   pull_request:
     types:
       - closed
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -23,20 +26,34 @@ jobs:
         run: |
           stableVersion=$(grep "stableVersion:" .github/variables.yml | awk -F ": " '{print $2}')
           echo "stableVersion=$stableVersion" >> $GITHUB_ENV
-        
           
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ env.stableVersion }}
-          release_name: Release ${{ env.stableVersion }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-            - Third Change
-          draft: false
-          prerelease: false
+      - name: Get Tags
+        id: get_tags
+        run: |
+          tags=$(git ls-remote --tags --refs main | awk '{print $2}' | awk -F/ '{print $NF}')
+          echo "::set-output name=tags::$tags"
+          
+      - name: Run build
+        run: |
+          echo "Running build task..."
+         
+          
+      - name: Create Release   
+        run: |
+          # Add your build commands here
+          echo "Running build task..."
+          # Replace the line above with your actual build command(s)
+          id: create_release
+          uses: actions/create-release@latest
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          with:
+            tag_name: ${{ env.stableVersion }}
+            release_name: Release ${{ env.stableVersion }}
+            body: |
+              Changes in this Release
+              - First Change
+              - Second Change
+              - Third Change
+            draft: false
+            prerelease: false
